@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一帶一路國際交流協會 | OBOR International Exchange Association</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --jci-blue: #005596; 
+            --jci-gold: #F2B411; 
+            --text-main: #1A1A1A;
+        }
+
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            scroll-behavior: smooth;
+            color: var(--text-main);
+            background-color: #ffffff;
+            font-size: 18px; /* 舒適字級 18px */
+            line-height: 1.8;
+        }
+
+        h1 { font-size: 3.5rem; font-weight: 900; }
+        h2 { font-size: 2.2rem; font-weight: 900; }
+        h3 { font-size: 1.8rem; font-weight: 900; }
+        h4 { font-size: 1.4rem; font-weight: 700; }
+
+        .text-jci-blue { color: var(--jci-blue); }
+        .bg-jci-blue { background-color: var(--jci-blue); }
+        .text-jci-gold { color: var(--jci-gold); }
+        .bg-jci-gold { background-color: var(--jci-gold); }
+
+        .hero-section {
+            position: relative;
+            min-height: 80vh;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45%;
+            opacity: 0.04;
+            pointer-events: none;
+        }
+
+        .page-view { display: none; animation: fadeIn 0.4s ease-out; }
+        .page-view.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-link.active-link {
+            color: var(--jci-blue);
+            font-weight: 900;
+            border-bottom: 3px solid var(--jci-gold);
+        }
+
+        .jci-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .jci-card:hover {
+            border-color: var(--jci-blue);
+            box-shadow: 0 10px 25px rgba(0, 85, 150, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .btn-jci {
+            background-color: var(--jci-blue);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn-jci:hover {
+            background-color: #003d6b;
+            transform: translateY(-2px);
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部資訊欄 -->
+    <div class="bg-gray-100 py-2 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-sm font-bold text-jci-blue">
+            <div class="flex space-x-6">
+                <span><i class="fa-solid fa-envelope mr-2"></i> info@obor-exchange.com</span>
+                <span class="hidden lg:inline tracking-widest opacity-80 uppercase">遨翔天際 網絡全球</span>
+            </div>
+            <div class="flex space-x-4 text-gray-500">
+                <a href="#" class="hover:text-jci-blue transition text-jci-blue">繁體中文</a>
+                <span>|</span>
+                <a href="#" class="hover:text-jci-blue transition">EN</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主導航欄 -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between h-24 items-center">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
+                    <img src="OBOR Logo_new.jpg.jpeg" alt="協會標誌" class="h-12 md:h-16 w-auto object-contain">
+                    <div class="flex flex-col justify-center">
+                        <div class="text-lg md:text-2xl font-black text-jci-blue leading-tight m-0">一帶一路國際交流協會</div>
+                        <div class="text-[8px] md:text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">OBOR International Exchange Association</div>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex items-center space-x-8 font-bold text-base">
+                    <button onclick="showPage('home')" class="nav-link py-2 hover:text-jci-blue active-link transition">首頁</button>
+                    <button onclick="showPage('about')" class="nav-link py-2 hover:text-jci-blue transition">關於我們</button>
+                    <!-- 取消下拉菜單 -->
+                    <button onclick="showPage('work')" class="nav-link py-2 hover:text-jci-blue transition">年度工作</button>
+                    <button onclick="showPage('news')" class="nav-link py-2 hover:text-jci-blue transition">最新動態</button>
+                    <button onclick="showPage('membership')" class="nav-link py-2 hover:text-jci-blue transition">會員福利</button>
+                    <button onclick="showPage('contact')" class="btn-jci">聯絡我們</button>
+                </div>
+
+                <div class="lg:hidden text-jci-blue text-3xl cursor-pointer" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </div>
+            </div>
+        </div>
+        <!-- 移動端選單 -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 p-8 space-y-4 shadow-xl">
+            <button onclick="showPage('home'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">首頁</button>
+            <button onclick="showPage('about'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">關於我們</button>
+            <button onclick="showPage('work'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">年度工作</button>
+            <button onclick="showPage('news'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">最新動態</button>
+            <button onclick="showPage('membership'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">會員福利</button>
+            <button onclick="showPage('contact'); toggleMobileMenu();" class="w-full btn-jci text-lg text-center py-3 mt-4">聯絡我們</button>
+        </div>
+    </nav>
+
+    <!-- ================= 1. 首頁 (Homepage) ================= -->
+    <main id="home-page" class="page-view active">
+        <header class="hero-section">
+            <div class="hero-pattern"><i class="fa-solid fa-globe text-[35rem] text-jci-blue/5"></i></div>
+            <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+                <div class="max-w-5xl">
+                    <h1 class="mb-4 leading-tight text-jci-blue">遨翔天際，網絡全球</h1>
+                    <p class="text-2xl text-jci-gold font-black mb-10 italic">Fly to the Sky, Network to the World</p>
+                    <div class="text-gray-600 font-medium mb-10 leading-relaxed space-y-4">
+                        <p>絲綢之路經濟帶和21世紀海上絲綢之路，簡稱「一帶一路」(OBOR 或 BRI / B&R)，由習近平主席於2013年提出。其目標是透過雙贏戰略，建立利益、命運與責任共同體，引起了國際社會的廣泛關注。</p>
+                        <p>其靈感來源於中國古代的貿易路線，在現今時代尋求透過龐大的交流平台、現代化基礎設施、政策協調、貿易與金融合作以及社會文化合作，將許多國家連接起來。因此，它是基於分析和解決這些國家在對話中可能出現的分歧，建設一條和平、繁榮、開放、創新與文明之路。</p>
+                        <p>一帶一路倡議成功的關鍵在於發展中歐之間暢通的公路與鐵路網絡。該倡議涵蓋了從亞洲到南亞、中亞、西亞及中東等超過 140 個國家與地區，佔全球經濟總量三分之一及全球貨物貿易量三分之一以上。它為從跨國公司到中小型企業等全球企業提供了取得更豐碩成果的機會。</p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="showPage('about')" class="btn-jci text-base px-10 py-3">了解願景</button>
+                        <button onclick="showPage('work')" class="border-2 border-jci-blue text-jci-blue px-10 py-3 rounded-full font-bold text-base hover:bg-jci-blue hover:text-white transition">探索核心工作</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 數據 -->
+        <section class="py-16 bg-gray-50 border-y border-gray-200">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-jci-blue">
+                        <div class="text-4xl font-black text-jci-gold mb-3">超過 63%</div>
+                        <p class="font-bold text-gray-600">全球人口</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-jci-blue">
+                        <div class="text-4xl font-black text-jci-gold mb-3">超過 35%</div>
+                        <p class="font-bold text-gray-600">商品貿易</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-jci-blue">
+                        <div class="text-4xl font-black text-jci-gold mb-3">約佔 30%</div>
+                        <p class="font-bold text-gray-600">全球 GDP</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 首頁 4 大領域 -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="jci-card">
+                        <h4 class="text-jci-blue mb-4 border-b border-gray-100 pb-2">國際交流</h4>
+                        <p class="text-sm text-gray-600">規劃一帶一路商務考察，旅遊並探索沿線國家的文化與商機。</p>
+                    </div>
+                    <div class="jci-card">
+                        <h4 class="text-jci-blue mb-4 border-b border-gray-100 pb-2">一帶一路學院</h4>
+                        <p class="text-sm text-gray-600">設立一帶一路學院，協助企業「引進來 + 走出去」提供雙軌海外指導。</p>
+                    </div>
+                    <div class="jci-card">
+                        <h4 class="text-jci-blue mb-4 border-b border-gray-100 pb-2">全球線上平台</h4>
+                        <p class="text-sm text-gray-600">透過線上與線下商業平台打造「一帶一路品牌」特色商品/服務貿易平台。</p>
+                    </div>
+                    <div class="jci-card">
+                        <h4 class="text-jci-blue mb-4 border-b border-gray-100 pb-2">商業諮詢</h4>
+                        <p class="text-sm text-gray-600">專家諮詢委員會將提供一對一專業諮詢，協助企業進行精準對接。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= 2. 關於我們 (About Us) ================= -->
+    <main id="about-page" class="page-view">
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- 標題與願景使命 -->
+                <div class="text-center mb-16">
+                    <h2 class="text-jci-blue mb-4">遨翔天際，網絡全球</h2>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-16 mb-20">
+                    <div>
+                        <h3 class="text-jci-blue mb-6 border-l-8 border-jci-gold pl-4">願景與使命</h3>
+                        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 mb-8 text-gray-700">
+                            <p class="font-bold mb-4">
+                                <span class="text-jci-gold">願景：</span> 我們的願景是成為領先的國際交流組織，促進全球一帶一路國家人民之間的相互了解與共贏發展。透過多元化的平台與項目，我們推動文化、商業與民間互動，為全球合作注入新動力。
+                            </p>
+                        </div>
+                        <h4 class="text-jci-blue mb-6">三大使命：</h4>
+                        <ul class="space-y-6 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-users text-jci-gold text-2xl mr-4 mt-1"></i>
+                                <div><strong>民間交流：</strong> 促進人民友好交往，增進國際友誼。</div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-palette text-jci-gold text-2xl mr-4 mt-1"></i>
+                                <div><strong>文化交流：</strong> 推動藝術、教育及傳統文化的互鑑與融合。</div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-chart-line text-jci-gold text-2xl mr-4 mt-1"></i>
+                                <div><strong>商業交流：</strong> 搭建企業合作平台，助力全球經濟繁榮。</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="bg-jci-blue p-10 rounded-2xl text-white shadow-xl h-full flex flex-col justify-center">
+                            <h3 class="text-jci-gold mb-6">我們的宗旨 (Our Motto)</h3>
+                            <p class="text-xl leading-relaxed">
+                                本著開放的精神，放眼世界，實現全球溝通，與一帶一路沿線國家及地區聯合合作，共享經濟發展與人類未來。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 執行委員會 -->
+                <div class="mb-20">
+                    <h3 class="text-jci-blue mb-8 text-center border-b-2 border-gray-100 pb-4">執行委員會 (Executive Committee)</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-gray-50 p-6 rounded-xl text-center border border-gray-200 font-bold text-jci-blue">國際交流委員會</div>
+                        <div class="bg-gray-50 p-6 rounded-xl text-center border border-gray-200 font-bold text-jci-blue">一帶一路學院委員會</div>
+                        <div class="bg-gray-50 p-6 rounded-xl text-center border border-gray-200 font-bold text-jci-blue">全球線上與線下平台委員會</div>
+                        <div class="bg-gray-50 p-6 rounded-xl text-center border border-gray-200 font-bold text-jci-blue">商業諮詢委員會</div>
+                    </div>
+                </div>
+
+                <!-- 成員與代表、覆蓋地區、發展目標 -->
+                <div class="grid lg:grid-cols-3 gap-12">
+                    <div class="lg:col-span-1">
+                        <h3 class="text-jci-blue mb-6 border-l-8 border-jci-gold pl-4">成員與代表</h3>
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            成員與海外代表：我們匯聚了來自世界各地的優秀成員與海外代表。他們是行業精英、文化大使和青年領袖，共同構建了一個充滿活力與創造力的國際網絡。讓我們以開放的心態與務實的行動攜手合作，譜寫國際交流的新篇章！
+                        </p>
+                        <div class="bg-jci-blue/5 p-6 rounded-xl border border-jci-blue/10">
+                            <p class="font-bold text-jci-blue mb-2">成員涵蓋：</p>
+                            <p class="text-sm text-gray-600">銀行、法律、會計、資訊科技及金融服務、建築及基礎設施、酒店、旅遊、貿易及製造業。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-2">
+                        <h3 class="text-jci-blue mb-6 border-l-8 border-jci-gold pl-4">覆蓋地區</h3>
+                        <p class="text-gray-700 mb-6 font-bold">海外與中國內地企業家/海外代表包括：</p>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm text-gray-600 mb-10">
+                            <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                                <strong class="text-jci-blue block mb-2">東南亞國家/地區：</strong>
+                                香港特區、澳門特區、中國台灣、馬來西亞、泰國、印尼、柬埔寨、新加坡、孟加拉、印度、巴基斯坦、菲律賓、日本、韓國、蒙古、越南、斯里蘭卡。
+                            </div>
+                            <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                                <strong class="text-jci-blue block mb-2">非洲國家/地區：</strong>
+                                突尼西亞、模里西斯、肯亞、南非。
+                            </div>
+                            <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                                <strong class="text-jci-blue block mb-2">中東國家/地區：</strong>
+                                伊朗、土耳其、以色列、克羅埃西亞。
+                            </div>
+                            <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                                <strong class="text-jci-blue block mb-2">美洲與歐洲國家/地區：</strong>
+                                巴西、巴拿馬、庫拉索。義大利、西班牙、瑞士、德國。
+                            </div>
+                        </div>
+                        <p class="text-gray-700 font-bold mb-8">以及中國內地企業家/商會代表等。</p>
+
+                        <h3 class="text-jci-blue mb-6 border-l-8 border-jci-gold pl-4">發展目標</h3>
+                        <p class="text-gray-700 leading-relaxed bg-jci-gold/10 p-6 rounded-xl border border-jci-gold/20">
+                            我們將加強一帶一路成員與其他海外商會、相關部門及組織的聯繫，以促進商業溝通、經濟與科技合作、資訊共享及資源整合。並致力於為當地企業搭建服務平台，實現協同發展與雙贏，在世界各地建立全球資源網絡。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= 3. 年度工作與活動 (Annual Work and Activities) ================= -->
+    <main id="work-page" class="page-view">
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-jci-blue mb-4">年度工作與活動</h2>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest">Annual Work and Activities</p>
+                </div>
+                
+                <!-- 工作項目列表 (無數字) -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                    <div class="jci-card">
+                        <div class="text-jci-gold font-black text-xl mb-2">國際交流</div>
+                        <h4 class="text-jci-blue mb-3">一帶一路大馬青商參議院大灣區商務交流之旅</h4>
+                        <p class="text-gray-500 font-bold"><i class="fa-regular fa-calendar text-jci-gold mr-2"></i>日期: 2025.8.4</p>
+                    </div>
+                    <div class="jci-card">
+                        <div class="text-jci-gold font-black text-xl mb-2">一帶一路學院</div>
+                        <h4 class="text-jci-blue mb-3">協助企業「引進來 + 走出去」雙軌海外指導</h4>
+                        <p class="text-gray-500 font-bold"><i class="fa-regular fa-calendar text-jci-gold mr-2"></i>日期: 2026.6.16</p>
+                    </div>
+                    <div class="jci-card">
+                        <div class="text-jci-gold font-black text-xl mb-2">全球線上與線下平台</div>
+                        <h4 class="text-jci-blue mb-3">透過線上與線下商業平台打造「一帶一路品牌」特色商品貿易平台</h4>
+                        <p class="text-gray-500 font-bold"><i class="fa-regular fa-calendar text-jci-gold mr-2"></i>日期: 2022.11.22</p>
+                    </div>
+                    <div class="jci-card">
+                        <div class="text-jci-gold font-black text-xl mb-2">一帶一路獎項 (OBOR Awards)</div>
+                        <h4 class="text-jci-blue mb-3">表彰全球企業家，建立品牌價值與聲譽</h4>
+                        <p class="text-sm text-gray-600 mb-3">表彰在公司或個人營運的行業內外建立品牌價值與聲譽，成為優秀雇主以及負責任的企業所取得的成就。</p>
+                        <p class="text-gray-500 font-bold"><i class="fa-regular fa-calendar text-jci-gold mr-2"></i>日期: 2022.11.22</p>
+                    </div>
+                    <div class="jci-card border-dashed bg-transparent border-gray-300 flex items-center justify-center">
+                        <div class="text-center">
+                            <h4 class="text-gray-400 mb-2">ESG：環境、社會和企業管治</h4>
+                            <p class="text-sm text-gray-400">(籌備中)</p>
+                        </div>
+                    </div>
+                    <div class="jci-card border-dashed bg-transparent border-gray-300 flex items-center justify-center">
+                        <div class="text-center">
+                            <h4 class="text-gray-400 mb-2">文化 (Culture)</h4>
+                            <p class="text-sm text-gray-400">(籌備中)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商業諮詢 -->
+                <div class="bg-white p-10 rounded-3xl border border-gray-200 shadow-lg mb-10">
+                    <div class="mb-12 text-center">
+                        <h2 class="text-jci-blue mb-6">商業諮詢 (Business Consultation)</h2>
+                        <p class="text-gray-700 max-w-4xl mx-auto font-bold text-xl bg-gray-50 p-6 rounded-xl border border-gray-100">
+                            簡介：建立全球資源網絡平台，為所有會員提供自助式的雙向線上全球商業配對平台，實現雙贏結果。
+                        </p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-16 mb-16">
+                        <!-- 為何選擇 -->
+                        <div>
+                            <h4 class="text-jci-blue mb-6 border-b-2 border-jci-gold inline-block pb-2">為何選擇一帶一路國際交流協會？</h4>
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-start"><i class="fa-solid fa-check text-jci-gold mt-1.5 mr-3"></i> <div>本會旨在促進全球會員的業務發展與拓展人脈機會。</div></li>
+                                <li class="flex items-start"><i class="fa-solid fa-check text-jci-gold mt-1.5 mr-3"></i> <div>會員代表所有主要行業：銀行、法律、會計、IT與金融服務、建築與基礎設施、酒店餐飲、旅遊、貿易與製造業。</div></li>
+                                <li class="flex items-start"><i class="fa-solid fa-check text-jci-gold mt-1.5 mr-3"></i> <div>本會擁有來自30多個國家、超過1,500名會員，目前代表超過500家香港、中國及全球企業。</div></li>
+                            </ul>
+                        </div>
+                        
+                        <!-- 如何運作 -->
+                        <div>
+                            <h4 class="text-jci-blue mb-6 border-b-2 border-jci-gold inline-block pb-2">如何運作？</h4>
+                            <p class="text-gray-700 mb-6">本計劃要求完成標準申請表填寫，隨後與我們的商業諮詢專家面談，以確保我們了解您的業務及需求。我們將透過廣泛的網絡與資料庫尋找潛在合作夥伴，並與他們聯繫以確認商業意向。</p>
+                            
+                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                                <p class="font-bold text-jci-blue mb-4">諮詢流程：</p>
+                                <ul class="space-y-3 text-sm text-gray-700">
+                                    <li><strong class="text-jci-gold">查詢 (Enquiry):</strong> 提交申請表</li>
+                                    <li><strong class="text-jci-gold">面談 (Interview):</strong> 了解您的業務與需求</li>
+                                    <li><strong class="text-jci-gold">參與 (Engagement):</strong> 確認商業意向與能力</li>
+                                    <li><strong class="text-jci-gold">聯繫 (Connect):</strong> 為您介紹潛在合作夥伴並提供服務報告</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 尋找項目 -->
+                    <div>
+                        <h4 class="text-jci-blue mb-6 border-b-2 border-jci-gold inline-block pb-2">尋找項目 (Looking for a project) 範例：</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-gray-700 border-collapse">
+                                <thead class="bg-jci-blue text-white">
+                                    <tr>
+                                        <th class="p-4 rounded-tl-lg font-bold">國家/地區</th>
+                                        <th class="p-4 font-bold">日期</th>
+                                        <th class="p-4 rounded-tr-lg font-bold">項目</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-50 transition"><td class="p-4">庫拉索 (Curaçao)</td><td class="p-4 text-gray-500">2022.3.20</td><td class="p-4 font-bold text-jci-blue">SUV 汽車</td></tr>
+                                    <tr class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100 transition"><td class="p-4">泰國 (Thailand)</td><td class="p-4 text-gray-500">2021.5.18</td><td class="p-4 font-bold text-jci-blue">Capthai 帽子</td></tr>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-50 transition"><td class="p-4">韓國 (Korea)</td><td class="p-4 text-gray-500">2021.1.5</td><td class="p-4 font-bold text-jci-blue">RADICELL 美容產品</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= 4. 電子報 (E-news) ================= -->
+    <main id="news-page" class="page-view">
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-jci-blue mb-4">電子報 (E-news)</h2>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest">最新動態與新聞文章</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- 新聞列表 (統一卡片樣式) -->
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">拜訪中聯辦貿易處</h4>
+                            <p class="text-sm text-gray-500 mt-2 font-bold">日期：2021-02-12</p>
+                            <p class="text-sm text-gray-600 mt-2 line-clamp-2">附註說明：與 xxx 會面，討論大灣區 (GBA) 合作事宜。</p>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">訊息 (Message)</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">伊朗領事館 (Iran Consultate)</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">廣州人大拜訪</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">南方國合中心 (Southern International Cooperation Observation)</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">廣東--獨聯体國際科技合作聯盟(廣東省科技廰)</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">第二屆一帶一路貿易投資政策與實務交流會</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">廣州社團總會四周年會慶</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">RCEP</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+
+                    <div class="jci-card flex flex-col group cursor-pointer" onclick="alert('載入文章...')">
+                        <div class="flex-grow">
+                            <h4 class="text-jci-blue group-hover:text-jci-gold transition line-clamp-2">吉布提國際自貿區（珠三角）線上推介會議程</h4>
+                        </div>
+                        <div class="mt-6 text-sm font-bold text-gray-400 group-hover:text-jci-blue transition">點擊閱讀全文 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= 6. 會員 / 地區會員 (Membership / Area Membership) ================= -->
+    <main id="membership-page" class="page-view">
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-start">
+                    <div>
+                        <h2 class="text-jci-blue mb-6">會員 / 地區會員<br><span class="text-2xl text-gray-400 font-bold">Membership / Area Membership</span></h2>
+                        <p class="text-lg text-gray-700 font-bold italic mb-10 border-l-4 border-jci-gold pl-4">
+                            提升企業/個人會員之間溝通、分享傑出企業案例、尋求會員間合作並凝聚力量造福世界的平台。
+                        </p>
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                <h4 class="text-jci-blue mb-1">會員福利 1：全球聯繫 (worldwide connection)</h4>
+                                <p class="text-gray-600">會員可以與一帶一路沿線的不同國家建立聯繫。</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                <h4 class="text-jci-blue mb-1">會員福利 2：知識充實 (knowledge enrichment)</h4>
+                                <p class="text-gray-600">會員可透過參加組織活動豐富各領域的商業知識。</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                <h4 class="text-jci-blue mb-1">會員福利 3：商業配對與諮詢 (business matching & consultation)</h4>
+                                <p class="text-gray-600">會員可透過線上商業配對平台擴展業務，或尋求我們的專家建議。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-jci-blue p-10 rounded-3xl text-white shadow-xl mt-4 lg:mt-0">
+                        <h4 class="text-2xl font-black mb-8 text-center border-b border-white/20 pb-4">企業 / 個人會員申請表<br><span class="text-sm font-normal block mt-2">(Corporate / Individual Membership Application Form)</span></h4>
+                        <form class="space-y-6" onsubmit="event.preventDefault(); alert('表單已提交。感謝申請！');">
+                            <div>
+                                <label class="block text-sm font-bold mb-2">公司或個人姓名 Company / Name</label>
+                                <input type="text" class="w-full bg-white/10 border border-white/30 text-white rounded-lg outline-none focus:border-jci-gold p-3" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2">電郵地址 Email Address</label>
+                                <input type="email" class="w-full bg-white/10 border border-white/30 text-white rounded-lg outline-none focus:border-jci-gold p-3" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2">所屬行業 Industry</label>
+                                <input type="text" class="w-full bg-white/10 border border-white/30 text-white rounded-lg outline-none focus:border-jci-gold p-3" required>
+                            </div>
+                            <button type="submit" class="w-full bg-jci-gold text-black py-4 rounded-lg text-lg font-bold hover:bg-white transition mt-6">送出申請 Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= 7. 聯絡我們 (Contact) ================= -->
+    <main id="contact-page" class="page-view">
+        <section class="py-20 bg-white">
+            <div class="max-w-3xl mx-auto px-6 text-center">
+                <div class="text-jci-gold text-5xl mb-6"><i class="fa-solid fa-envelope-open-text"></i></div>
+                <h2 class="text-jci-blue mb-4">聯絡我們 (Contact)</h2>
+                <p class="text-gray-600 font-bold mb-10 text-xl">如有查詢，請填寫表格 (For enquiries, please fill in the form)</p>
+                
+                <div class="bg-gray-50 p-10 rounded-3xl border border-gray-200 text-left shadow-sm">
+                    <h4 class="text-jci-blue mb-8 border-b border-gray-200 pb-4">查詢表格 / 會員申請表<br><span class="text-sm font-normal text-gray-500 block mt-2">(Enquiries Form / Membership Application Form)</span></h4>
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('查詢已送出。感謝！');">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">姓名 Name</label>
+                            <input type="text" class="w-full bg-white border border-gray-300 rounded-lg p-3 focus:border-jci-blue outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">電郵地址 Email</label>
+                            <input type="email" class="w-full bg-white border border-gray-300 rounded-lg p-3 focus:border-jci-blue outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">查詢內容 Message</label>
+                            <textarea rows="5" class="w-full bg-white border border-gray-300 rounded-lg p-3 focus:border-jci-blue outline-none" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-jci w-full text-xl py-4 rounded-lg mt-4">發送訊息 Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= 頁腳 (Footer) ================= -->
+    <footer class="bg-jci-blue text-white py-16 border-t-8 border-jci-gold">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex flex-col md:flex-row items-center justify-center md:space-x-6 mb-10">
+                <img src="OBOR Logo_new.jpg.jpeg" alt="協會標誌" class="h-16 md:h-20 w-auto object-contain bg-white/90 p-2 rounded-xl mb-4 md:mb-0">
+                <div class="text-center md:text-left">
+                    <h4 class="font-black text-2xl md:text-3xl m-0 text-white leading-tight">一帶一路國際交流協會</h4>
+                    <p class="text-xs md:text-sm text-blue-200 tracking-widest uppercase mt-2">OBOR International Exchange Association</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 text-base font-bold text-blue-200 mb-10">
+                <button onclick="showPage('home')" class="hover:text-white transition">首頁</button>
+                <button onclick="showPage('about')" class="hover:text-white transition">關於我們</button>
+                <button onclick="showPage('work')" class="hover:text-white transition">年度工作</button>
+                <button onclick="showPage('news')" class="hover:text-white transition">最新動態</button>
+                <button onclick="showPage('membership')" class="hover:text-white transition">會員專區</button>
+                <button onclick="showPage('contact')" class="hover:text-white transition">聯絡我們</button>
+            </div>
+            <p class="text-sm text-blue-300 tracking-widest uppercase">
+                &copy; 2026 OBOR INTERNATIONAL EXCHANGE ASSOCIATION. 版權所有.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pageId + '-page');
+            if (target) target.classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
+            const activeNav = document.querySelectorAll(`button[onclick*="showPage('${pageId}')"]`);
+            activeNav.forEach(n => { if(n.classList.contains('nav-link')) n.classList.add('active-link'); });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const m = document.getElementById('mobile-menu');
+            m.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

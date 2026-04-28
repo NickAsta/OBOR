@@ -11,7 +11,7 @@
         
         :root {
             --jci-blue: #005596; 
-            --jci-gold: #73B440; 
+            --jci-gold: #F2B411; 
             --text-main: #1A1A1A;
         }
 
@@ -20,7 +20,7 @@
             scroll-behavior: smooth;
             color: var(--text-main);
             background-color: #ffffff;
-            font-size: 18px; /* 舒適字級 18px */
+            font-size: 18px; 
             line-height: 1.8;
         }
 
@@ -33,26 +33,6 @@
         .bg-jci-blue { background-color: var(--jci-blue); }
         .text-jci-gold { color: var(--jci-gold); }
         .bg-jci-gold { background-color: var(--jci-gold); }
-
-        .hero-section {
-            position: relative;
-            min-height: 80vh;
-            background-color: #ffffff;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            border-bottom: 1px solid #eee;
-        }
-
-        .hero-pattern {
-            position: absolute;
-            right: -5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 45%;
-            opacity: 0.04;
-            pointer-events: none;
-        }
 
         .page-view { display: none; animation: fadeIn 0.4s ease-out; }
         .page-view.active { display: block; }
@@ -108,6 +88,72 @@
             -webkit-box-orient: vertical;  
             overflow: hidden;
         }
+
+        /* 輪播圖樣式 */
+        .carousel-container {
+            position: relative;
+            height: 75vh;
+            min-height: 600px;
+            overflow: hidden;
+            background-color: var(--jci-blue);
+        }
+        .carousel-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .carousel-content {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.8s ease-out 0.3s;
+        }
+        .carousel-slide.active .carousel-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+         
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .carousel-btn:hover { background: rgba(255,255,255,0.5); }
+        .carousel-btn-left { left: 20px; justify-content: center; }
+        .carousel-btn-right { right: 20px; justify-content: center; }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+        }
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .carousel-dot.active { background: var(--jci-gold); }
     </style>
 </head>
 <body>
@@ -132,7 +178,8 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between py-4 items-center">
                 <div class="flex items-center space-x-4 cursor-pointer" onclick="showPage('home')">
-                    <img src="OBOR Logo_new.jpg.jpeg" alt="協會標誌" class="h-16 md:h-24 w-auto object-contain">
+                    <!-- 協會 Logo -->
+                    <img src="logo.png" alt="" class="h-16 md:h-24 w-auto object-contain">
                     <div class="flex flex-col justify-center">
                         <div class="text-xl md:text-3xl font-black text-jci-blue leading-tight m-0">一帶一路國際交流協會</div>
                         <div class="text-[9px] md:text-xs font-bold text-gray-500 uppercase tracking-widest mt-1">OBOR International Exchange Association</div>
@@ -142,10 +189,9 @@
                 <div class="hidden lg:flex items-center space-x-8 font-bold text-base">
                     <button onclick="showPage('home')" class="nav-link py-2 hover:text-jci-blue active-link transition">首頁</button>
                     <button onclick="showPage('about')" class="nav-link py-2 hover:text-jci-blue transition">關於我們</button>
-                    <!-- 取消下拉菜單 -->
                     <button onclick="showPage('work')" class="nav-link py-2 hover:text-jci-blue transition">年度工作</button>
                     <button onclick="showPage('news')" class="nav-link py-2 hover:text-jci-blue transition">最新動態</button>
-                    <button onclick="showPage('membership')" class="nav-link py-2 hover:text-jci-blue transition">會員福利</button>
+                    <button onclick="showPage('membership')" class="nav-link py-2 hover:text-jci-blue transition">會員專區</button>
                     <button onclick="showPage('contact')" class="btn-jci">聯絡我們</button>
                 </div>
 
@@ -160,72 +206,181 @@
             <button onclick="showPage('about'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">關於我們</button>
             <button onclick="showPage('work'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">年度工作</button>
             <button onclick="showPage('news'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">最新動態</button>
-            <button onclick="showPage('membership'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">會員福利</button>
+            <button onclick="showPage('membership'); toggleMobileMenu();" class="block w-full text-left text-xl font-black border-b pb-2">會員專區</button>
             <button onclick="showPage('contact'); toggleMobileMenu();" class="w-full btn-jci text-lg text-center py-3 mt-4">聯絡我們</button>
         </div>
     </nav>
 
     <!-- ================= 1. 首頁 (Homepage) ================= -->
     <main id="home-page" class="page-view active">
-        <header class="hero-section">
-            <div class="hero-pattern"><i class="fa-solid fa-globe text-[35rem] text-jci-blue/5"></i></div>
-            <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
-                <div class="max-w-5xl">
-                    <h1 class="mb-4 leading-tight text-jci-blue">遨翔天際，網絡全球</h1>
-                    <p class="text-2xl text-jci-gold font-black mb-10 italic">Fly to the Sky, Network to the World</p>
-                    <div class="text-gray-600 font-medium mb-10 leading-relaxed space-y-4">
-                        <p>絲綢之路經濟帶和21世紀海上絲綢之路，簡稱「一帶一路」(OBOR 或 BRI / B&R)，由習近平主席於2013年提出。其目標是透過雙贏戰略，建立利益、命運與責任共同體，引起了國際社會的廣泛關注。</p>
-                        <p>其靈感來源於中國古代的貿易路線，在現今時代尋求透過龐大的交流平台、現代化基礎設施、政策協調、貿易與金融合作以及社會文化合作，將許多國家連接起來。因此，它是基於分析和解決這些國家在對話中可能出現的分歧，建設一條和平、繁榮、開放、創新與文明之路。</p>
-                        <p>一帶一路倡議成功的關鍵在於發展中歐之間暢通的公路與鐵路網絡。該倡議涵蓋了從亞洲到南亞、中亞、西亞及中東等超過 140 個國家與地區，佔全球經濟總量三分之一及全球貨物貿易量三分之一以上。它為從跨國公司到中小型企業等全球企業提供了取得更豐碩成果的機會。</p>
-                    </div>
-                    <div class="flex flex-wrap gap-4">
-                        <button onclick="showPage('about')" class="btn-jci text-base px-10 py-3">了解願景</button>
-                        <button onclick="showPage('work')" class="border-2 border-jci-blue text-jci-blue px-10 py-3 rounded-full font-bold text-base hover:bg-jci-blue hover:text-white transition">探索核心工作</button>
+        
+        <!-- 輪播圖 Banner -->
+        <div class="carousel-container">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active">
+                <div class="absolute inset-0 bg-black/50 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1920&q=80" alt="" class="w-full h-full object-cover absolute inset-0">
+                <div class="absolute inset-0 z-20 flex items-center justify-center text-center px-6">
+                    <div class="carousel-content max-w-5xl">
+                        <h1 class="mb-4 leading-tight text-white">遨翔天際，網絡全球</h1>
+                        <p class="text-2xl text-jci-gold font-black mb-8 italic">Fly to the Sky, Network to the World</p>
+                        <p class="text-white/90 font-medium mb-10 leading-relaxed text-xl max-w-3xl mx-auto">
+                            絲綢之路經濟帶和21世紀海上絲綢之路，簡稱「一帶一路」(OBOR 或 BRI)。我們的目標是透過雙贏戰略，建立利益、命運與責任共同體，引起國際社會的廣泛關注。
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <button onclick="showPage('about')" class="bg-jci-gold text-black font-bold text-base px-10 py-3 rounded-full hover:bg-white transition">了解願景</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </header>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <div class="absolute inset-0 bg-jci-blue/80 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80" alt="" class="w-full h-full object-cover absolute inset-0">
+                <div class="absolute inset-0 z-20 flex items-center justify-center text-center px-6">
+                    <div class="carousel-content max-w-5xl">
+                        <h1 class="mb-4 leading-tight text-white">推動全球和平與繁榮</h1>
+                        <p class="text-2xl text-jci-gold font-black mb-8 italic">Peace, Prosperity, Openness, Innovation</p>
+                        <p class="text-white/90 font-medium mb-10 leading-relaxed text-xl max-w-3xl mx-auto">
+                            靈感來源於中國古代的貿易路線，在現今時代尋求透過龐大的交流平台、現代化基礎設施與社會文化合作，將許多國家連接起來，建設一條文明之路。
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <button onclick="showPage('work')" class="bg-jci-gold text-black font-bold text-base px-10 py-3 rounded-full hover:bg-white transition">探索核心工作</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+                <div class="absolute inset-0 bg-black/60 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1920&q=80" alt="" class="w-full h-full object-cover absolute inset-0">
+                <div class="absolute inset-0 z-20 flex items-center justify-center text-center px-6">
+                    <div class="carousel-content max-w-5xl">
+                        <h1 class="mb-4 leading-tight text-white">創造豐碩的商業機遇</h1>
+                        <p class="text-2xl text-jci-gold font-black mb-8 italic">Opportunities for Global Enterprises</p>
+                        <p class="text-white/90 font-medium mb-10 leading-relaxed text-xl max-w-3xl mx-auto">
+                            涵蓋超過 140 個國家與地區，佔全球經濟總量三分之一及全球貨物貿易量三分之一以上。我們為從跨國公司到中小型企業提供了取得更豐碩成果的機會。
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <button onclick="showPage('membership')" class="bg-jci-gold text-black font-bold text-base px-10 py-3 rounded-full hover:bg-white transition">加入會員</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 輪播控制 -->
+            <div class="carousel-btn carousel-btn-left" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left text-2xl"></i></div>
+            <div class="carousel-btn carousel-btn-right" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right text-2xl"></i></div>
+            <div class="carousel-indicators" id="carousel-dots">
+                <!-- 圓點由 JS 生成 -->
+            </div>
+        </div>
 
         <!-- 數據 -->
-        <section class="py-16 bg-gray-50 border-y border-gray-200">
+        <section class="py-12 bg-gray-50 border-y border-gray-200 relative z-30 -mt-8 mx-6 md:mx-auto max-w-7xl rounded-2xl shadow-xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-8">
+                <div>
+                    <div class="text-4xl font-black text-jci-blue mb-1">超過 63%</div>
+                    <p class="font-bold text-gray-500">全球人口覆蓋</p>
+                </div>
+                <div class="border-t md:border-t-0 md:border-l border-gray-200 pt-6 md:pt-0">
+                    <div class="text-4xl font-black text-jci-blue mb-1">超過 35%</div>
+                    <p class="font-bold text-gray-500">商品貿易佔比</p>
+                </div>
+                <div class="border-t md:border-t-0 md:border-l border-gray-200 pt-6 md:pt-0">
+                    <div class="text-4xl font-black text-jci-blue mb-1">約佔 30%</div>
+                    <p class="font-bold text-gray-500">全球 GDP 規模</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 左圖右文：關於「一帶一路」倡議 -->
+        <section class="py-24 bg-white">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-jci-blue">
-                        <div class="text-4xl font-black text-jci-gold mb-3">超過 63%</div>
-                        <p class="font-bold text-gray-600">全球人口</p>
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="order-2 lg:order-1 relative">
+                        <div class="absolute inset-0 bg-jci-gold rounded-2xl transform -translate-x-4 translate-y-4 -z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-2xl shadow-lg w-full h-[400px] object-cover">
                     </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-jci-blue">
-                        <div class="text-4xl font-black text-jci-gold mb-3">超過 35%</div>
-                        <p class="font-bold text-gray-600">商品貿易</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-jci-blue">
-                        <div class="text-4xl font-black text-jci-gold mb-3">約佔 30%</div>
-                        <p class="font-bold text-gray-600">全球 GDP</p>
+                    <div class="order-1 lg:order-2">
+                        <h2 class="text-jci-blue mb-6">關於「一帶一路」倡議</h2>
+                        <div class="space-y-4 text-gray-600 text-lg">
+                            <p>「絲綢之路經濟帶」和「21世紀海上絲綢之路」，簡稱「一帶一路」(OBOR 或 BRI)，是由習近平主席於2013年提出的宏偉合作構想。</p>
+                            <p>倡議的成功關鍵在於發展中歐之間暢通的公路與鐵路網絡。其靈感來源於中國古代的貿易路線，在現今時代尋求透過龐大的交流平台、現代化基礎設施、政策協調、貿易與金融合作以及社會文化合作，將許多國家連接起來。</p>
+                            <p>因此，它是基於分析和解決這些國家在對話中可能出現的分歧，建設一條<strong>和平、繁榮、開放、創新與文明之路</strong>。</p>
+                        </div>
+                        <button onclick="showPage('about')" class="mt-8 text-jci-blue font-bold border-b-2 border-jci-blue hover:text-jci-gold hover:border-jci-gold transition pb-1">了解更多背景與發展</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 首頁 4 大領域 -->
-        <section class="py-20 bg-white">
+        <!-- 右圖左文：協會願景與使命 -->
+        <section class="py-24 bg-gray-50">
             <div class="max-w-7xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="order-1">
+                        <h2 class="text-jci-blue mb-6">協會願景與使命</h2>
+                        <p class="text-xl text-gray-800 font-bold italic mb-8 border-l-4 border-jci-gold pl-4">
+                            成為領先的國際交流組織，促進全球一帶一路國家人民之間的相互了解與共贏發展。
+                        </p>
+                        <div class="space-y-6 text-gray-600 mb-8">
+                            <div class="flex items-start">
+                                <div class="bg-white p-3 rounded-full shadow-sm mr-4 text-jci-gold"><i class="fa-solid fa-users text-xl"></i></div>
+                                <div><strong class="text-jci-blue block text-xl mb-1">民間交流</strong>促進人民友好交往，增進國際友誼。</div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-white p-3 rounded-full shadow-sm mr-4 text-jci-gold"><i class="fa-solid fa-palette text-xl"></i></div>
+                                <div><strong class="text-jci-blue block text-xl mb-1">文化交流</strong>推動藝術、教育及傳統文化的互鑑與融合。</div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-white p-3 rounded-full shadow-sm mr-4 text-jci-gold"><i class="fa-solid fa-chart-line text-xl"></i></div>
+                                <div><strong class="text-jci-blue block text-xl mb-1">商業交流</strong>搭建企業合作平台，助力全球經濟繁榮。</div>
+                            </div>
+                        </div>
+                        <button onclick="showPage('about')" class="btn-jci">查看完整執行委員會</button>
+                    </div>
+                    <div class="order-2 relative">
+                        <div class="absolute inset-0 bg-jci-blue rounded-2xl transform translate-x-4 translate-y-4 -z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-2xl shadow-lg w-full h-[400px] object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 首頁 4 大核心服務 (卡片區) -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-jci-blue mb-4">核心服務平台</h2>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest">Our Core Platforms</p>
+                </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="jci-card">
-                        <h4 class="text-jci-blue mb-4 border-b border-gray-100 pb-2">國際交流</h4>
+                    <div class="jci-card text-center bg-gray-50 hover:bg-white border-transparent">
+                        <i class="fa-solid fa-plane-departure text-4xl text-jci-gold mb-6"></i>
+                        <h4 class="text-jci-blue mb-3">國際交流</h4>
                         <p class="text-sm text-gray-600">規劃一帶一路商務考察，旅遊並探索沿線國家的文化與商機。</p>
                     </div>
-                    <div class="jci-card">
-                        <h4 class="text-jci-blue mb-4 border-b border-gray-100 pb-2">一帶一路學院</h4>
+                    <div class="jci-card text-center bg-gray-50 hover:bg-white border-transparent">
+                        <i class="fa-solid fa-building-columns text-4xl text-jci-gold mb-6"></i>
+                        <h4 class="text-jci-blue mb-3">一帶一路學院</h4>
                         <p class="text-sm text-gray-600">設立一帶一路學院，協助企業「引進來 + 走出去」提供雙軌海外指導。</p>
                     </div>
-                    <div class="jci-card">
-                        <h4 class="text-jci-blue mb-4 border-b border-gray-100 pb-2">全球線上平台</h4>
+                    <div class="jci-card text-center bg-gray-50 hover:bg-white border-transparent">
+                        <i class="fa-solid fa-earth-americas text-4xl text-jci-gold mb-6"></i>
+                        <h4 class="text-jci-blue mb-3">全球線上平台</h4>
                         <p class="text-sm text-gray-600">透過線上與線下商業平台打造「一帶一路品牌」特色商品/服務貿易平台。</p>
                     </div>
-                    <div class="jci-card">
-                        <h4 class="text-jci-blue mb-4 border-b border-gray-100 pb-2">商業諮詢</h4>
+                    <div class="jci-card text-center bg-gray-50 hover:bg-white border-transparent">
+                        <i class="fa-solid fa-comments-dollar text-4xl text-jci-gold mb-6"></i>
+                        <h4 class="text-jci-blue mb-3">商業諮詢</h4>
                         <p class="text-sm text-gray-600">專家諮詢委員會將提供一對一專業諮詢，協助企業進行精準對接。</p>
                     </div>
+                </div>
+                <div class="text-center mt-12">
+                    <button onclick="showPage('work')" class="text-jci-blue font-bold border-b border-jci-blue hover:text-jci-gold hover:border-jci-gold transition">查看 8 大年度工作與活動 <i class="fa-solid fa-arrow-right ml-1"></i></button>
                 </div>
             </div>
         </section>
@@ -340,7 +495,7 @@
                     <p class="text-gray-500 font-bold uppercase tracking-widest">Annual Work and Activities</p>
                 </div>
                 
-                <!-- 工作項目列表 (無數字) -->
+                <!-- 工作項目列表 -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                     <div class="jci-card">
                         <div class="text-jci-gold font-black text-xl mb-2">國際交流</div>
@@ -609,7 +764,7 @@
     <footer class="bg-jci-blue text-white py-16 border-t-8 border-jci-gold">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <div class="flex flex-col md:flex-row items-center justify-center md:space-x-8 mb-12">
-                <img src="OBOR Logo_new.jpg.jpeg" alt="協會標誌" class="h-24 md:h-32 w-auto object-contain bg-white/95 p-3 rounded-2xl mb-6 md:mb-0 shadow-lg">
+                <img src="logo.png" alt="" class="h-24 md:h-32 w-auto object-contain bg-white/95 p-3 rounded-2xl mb-6 md:mb-0 shadow-lg">
                 <div class="text-center md:text-left">
                     <h4 class="font-black text-3xl md:text-4xl m-0 text-white leading-tight">一帶一路國際交流協會</h4>
                     <p class="text-sm md:text-base text-blue-200 tracking-widest uppercase mt-3">OBOR International Exchange Association</p>
@@ -646,6 +801,67 @@
             const m = document.getElementById('mobile-menu');
             m.classList.toggle('hidden');
         }
+
+        // 簡單輪播圖控制腳本
+        let slideIndex = 0;
+        let slides = [];
+        let dots = [];
+        let autoPlayInterval;
+
+        function initCarousel() {
+            slides = document.querySelectorAll('.carousel-slide');
+            const dotsContainer = document.getElementById('carousel-dots');
+            
+            if(slides.length === 0) return;
+
+            // 建立圓點
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                dot.onclick = () => setSlide(i);
+                dotsContainer.appendChild(dot);
+            });
+            dots = document.querySelectorAll('.carousel-dot');
+
+            updateCarousel();
+            startAutoPlay();
+        }
+
+        function updateCarousel() {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function moveSlide(n) {
+            slideIndex += n;
+            if (slideIndex >= slides.length) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = slides.length - 1;
+            updateCarousel();
+            resetAutoPlay();
+        }
+
+        function setSlide(n) {
+            slideIndex = n;
+            updateCarousel();
+            resetAutoPlay();
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => moveSlide(1), 5000); // 5秒輪播
+        }
+
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        // 當頁面加載完成時初始化輪播
+        document.addEventListener('DOMContentLoaded', initCarousel);
+
     </script>
 </body>
 </html>
